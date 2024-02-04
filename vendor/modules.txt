@@ -1,0 +1,8 @@
+# ctyun.dev/faas/pkg v0.1.5 => ctyun-code.srdcloud.cn/a/CNPaaS/fc/pkg v0.1.5
+## explicit; go 1.20
+ctyun.dev/faas/pkg/credential
+ctyun.dev/faas/pkg/credential/util
+# github.com/google/uuid v1.6.0
+## explicit
+github.com/google/uuid
+# ctyun.dev/faas/pkg => ctyun-code.srdcloud.cn/a/CNPaaS/fc/pkg v0.1.5
