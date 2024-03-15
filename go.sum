@@ -1,5 +1,7 @@
-ctyun-code.srdcloud.cn/a/CNPaaS/fc/pkg v0.1.5 h1:e5C6xs4Jdr9DdoEOnjBHi8O+GwaXmU8smFHao6Rfq34=
-ctyun-code.srdcloud.cn/a/CNPaaS/fc/pkg v0.1.5/go.mod h1:090/UeS3Tck1NZSeUpaNRqqjS/wZyRfB+aB+Dl3R11I=
+ctyun-code.srdcloud.cn/a/CNPaaS/fc/pkg v0.1.6 h1:dQoSCxX171JmG0NrJ2rdv+SEWCqW0pScgniJ4TpVhDk=
+ctyun-code.srdcloud.cn/a/CNPaaS/fc/pkg v0.1.6/go.mod h1:uvbeOuW7x0ncLr9re9L7JRmxK08HDUdKAx/uau1qpLo=
+github.com/Taoja/sm4 v0.0.0-20210702124949-ed65c23ff019 h1:9VKAUKGeGC0qrqzTWlR6la7T+dfGHUwtKVpYH0TeHDI=
+github.com/Taoja/sm4 v0.0.0-20210702124949-ed65c23ff019/go.mod h1:ENBa7K7CdnfYoOSMPUZjDDkEfqRxvSqTFy5JuY3ROcM=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=

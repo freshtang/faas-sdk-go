@@ -43,13 +43,14 @@ func (c *credential) DoCTAPIRequest(request *Request) (*http.Response, error) {
 			return nil, err
 		}
 		uuid := uuid.New().String()
-		timestamp := time.Now()
-		eopDate := timestamp.Format("20060102T150405Z")
+		localtion, _ := time.LoadLocation("Asia/Shanghai")
+		now := time.Now().In(localtion)
+		eopDate := now.Format("20060102T150405Z")
 
 		httpReq.Header.Add("Content-Type", util.StringValue(request.Headers["Content-Type"]))
 		httpReq.Header.Add("ctyun-eop-request-id", uuid)
 		httpReq.Header.Add("Eop-date", eopDate)
-		httpReq.Header.Add("Eop-Authorization", getCTAPIAuthorization(queryStr, util.StringValue(util.ToJSONString(request.Body)), uuid, util.StringValue(c.AK), util.StringValue(c.SK), timestamp))
+		httpReq.Header.Add("Eop-Authorization", getCTAPIAuthorization(queryStr, util.StringValue(util.ToJSONString(request.Body)), uuid, util.StringValue(c.AK), util.StringValue(c.SK), now))
 		for key, value := range request.Headers {
 			if value != nil {
 				httpReq.Header.Add(key, util.StringValue(value))
