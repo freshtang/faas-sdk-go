@@ -77,6 +77,9 @@ func DefaultString(reaStr, defaultStr *string) *string {
 }
 
 func ToJSONString(a interface{}) *string {
+	if a == nil {
+		return String("")
+	}
 	switch v := a.(type) {
 	case *string:
 		return v
