@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	"ctyun.dev/faas/pkg/credential/util"
 	"github.com/google/uuid"
+	"gitlab.ctyun.cn/ctg-dcos/faas-sdk-go/credential/util"
 )
 
 func (c *credential) DoCTAPIRequest(request *Request) (*http.Response, error) {
@@ -48,6 +48,7 @@ func (c *credential) DoCTAPIRequest(request *Request) (*http.Response, error) {
 		eopDate := now.Format("20060102T150405Z")
 
 		httpReq.Header.Add("Content-Type", util.StringValue(request.Headers["Content-Type"]))
+		httpReq.Header.Add("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/110.0")
 		httpReq.Header.Add("ctyun-eop-request-id", uuid)
 		httpReq.Header.Add("Eop-date", eopDate)
 		httpReq.Header.Add("Eop-Authorization", getCTAPIAuthorization(queryStr, util.StringValue(util.ToJSONString(request.Body)), uuid, util.StringValue(c.AK), util.StringValue(c.SK), now))

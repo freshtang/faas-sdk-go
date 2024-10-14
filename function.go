@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"strings"
 
-	"ctyun.dev/faas/pkg/credential"
-	"ctyun.dev/faas/pkg/credential/util"
+	"gitlab.ctyun.cn/ctg-dcos/faas-sdk-go/credential"
+	"gitlab.ctyun.cn/ctg-dcos/faas-sdk-go/credential/util"
 )
 
 const (

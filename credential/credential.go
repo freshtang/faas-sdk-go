@@ -12,7 +12,7 @@ import (
 	"sort"
 	"strings"
 
-	"ctyun.dev/faas/pkg/credential/util"
+	"gitlab.ctyun.cn/ctg-dcos/faas-sdk-go/credential/util"
 )
 
 type Request struct {

@@ -3,7 +3,7 @@ package client
 import (
 	"errors"
 
-	"ctyun.dev/faas/pkg/credential/util"
+	"gitlab.ctyun.cn/ctg-dcos/faas-sdk-go/credential/util"
 )
 
 // Endpoint规则：[product_code].[regionid].ctyun.cn
