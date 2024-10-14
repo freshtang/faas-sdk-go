@@ -15,7 +15,7 @@ type Config struct {
 	Method    *string `json:"method,omitempty" xml:"method,omitempty"`
 }
 
-type client struct {
+type Client struct {
 	Endpoint  *string
 	AccessKey *string
 	SecretKey *string
@@ -23,13 +23,13 @@ type client struct {
 	Method    *string
 }
 
-func NewClient(config *Config) (*client, error) {
-	client := &client{}
+func NewClient(config *Config) (*Client, error) {
+	client := &Client{}
 	err := client.init(config)
 	return client, err
 }
 
-func (c *client) init(config *Config) error {
+func (c *Client) init(config *Config) error {
 	if config.Endpoint == nil {
 		return errors.New("endpoint is required")
 	}

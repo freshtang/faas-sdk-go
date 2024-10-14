@@ -106,7 +106,7 @@ func (s *InvokeFunctionResponse) SetBody(v io.Reader) *InvokeFunctionResponse {
  * @param request InvokeFunctionRequest
  * @return InvokeFunctionResponse
  */
-func (c *client) InvokeFunction(functionName *string, request *InvokeFunctionRequest) (_result *InvokeFunctionResponse, _err error) {
+func (c *Client) InvokeFunction(functionName *string, request *InvokeFunctionRequest) (_result *InvokeFunctionResponse, _err error) {
 	headers := &InvokeFunctionHeaders{}
 	_result = &InvokeFunctionResponse{}
 	_body, _err := c.InvokeFunctionWithOptions(functionName, request, headers)
@@ -124,7 +124,7 @@ func (c *client) InvokeFunction(functionName *string, request *InvokeFunctionReq
  * @param headers InvokeFunctionHeaders
  * @return InvokeFunctionResponse
  */
-func (c *client) InvokeFunctionWithOptions(functionName *string, request *InvokeFunctionRequest, headers *InvokeFunctionHeaders) (_result *InvokeFunctionResponse, _err error) {
+func (c *Client) InvokeFunctionWithOptions(functionName *string, request *InvokeFunctionRequest, headers *InvokeFunctionHeaders) (_result *InvokeFunctionResponse, _err error) {
 	client := credential.NewCredential(c.AccessKey, c.SecretKey)
 	query := make(map[string]*string)
 	if request.Qualifier == nil {
@@ -170,6 +170,6 @@ func (c *client) InvokeFunctionWithOptions(functionName *string, request *Invoke
 	return _result, _err
 }
 
-func (c *client) path(functionName *string) string {
+func (c *Client) path(functionName *string) string {
 	return fmt.Sprintf(InvokeFunctionPath, *functionName)
 }
