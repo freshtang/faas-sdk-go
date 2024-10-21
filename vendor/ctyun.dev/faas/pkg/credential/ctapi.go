@@ -1,8 +1,10 @@
 package credential
 
 import (
+	"bytes"
 	"crypto/tls"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"sort"
@@ -38,19 +40,24 @@ func (c *credential) DoCTAPIRequest(request *Request) (*http.Response, error) {
 				request.Headers["Content-Type"] = util.String("application/x-www-form-urlencoded")
 			}
 		}
-		httpReq, err := http.NewRequest(util.StringValue(request.Method), requestURL, reqBody)
+		// 读取&复用请求体
+		body, err := io.ReadAll(reqBody)
+		if err != nil {
+			return nil, err
+		}
+		httpReq, err := http.NewRequest(util.StringValue(request.Method), requestURL, io.NopCloser(bytes.NewBuffer(body)))
 		if err != nil {
 			return nil, err
 		}
 		uuid := uuid.New().String()
 		localtion, _ := time.LoadLocation("Asia/Shanghai")
 		now := time.Now().In(localtion)
-		eopDate := now.Format("20060102T150405Z")
-
+		eopDate := now.Format(util.TimeFormat)
 		httpReq.Header.Add("Content-Type", util.StringValue(request.Headers["Content-Type"]))
+		httpReq.Header.Add("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/110.0")
 		httpReq.Header.Add("ctyun-eop-request-id", uuid)
 		httpReq.Header.Add("Eop-date", eopDate)
-		httpReq.Header.Add("Eop-Authorization", getCTAPIAuthorization(queryStr, util.StringValue(util.ToJSONString(request.Body)), uuid, util.StringValue(c.AK), util.StringValue(c.SK), now))
+		httpReq.Header.Add("Eop-Authorization", getCTAPIAuthorization(queryStr, util.StringValue(util.ToJSONString(body)), uuid, util.StringValue(c.AK), util.StringValue(c.SK), now))
 		for key, value := range request.Headers {
 			if value != nil {
 				httpReq.Header.Add(key, util.StringValue(value))
@@ -74,11 +81,7 @@ func getCTAPISortedQueryString(query map[string]*string) string {
 	sort.Slice(queryArray, func(i, j int) bool {
 		return queryArray[i] < queryArray[j] // 正序
 	})
-	newQuery := ""
-	for _, value := range queryArray {
-		newQuery = newQuery + "&" + value
-	}
-	return encodeQueryStr(newQuery)
+	return encodeQueryStr(strings.Join(queryArray, "&"))
 }
 
 func encodeQueryStr(query string) string {
@@ -118,8 +121,8 @@ func encodeQueryStr(query string) string {
 func getCTAPIAuthorization(query, body, uuid, ak, sk string, timestamp time.Time) string {
 	hashedRequestBody := util.StringValue(util.HexEncode(util.Hash([]byte(body), util.String(util.DefaultSignatureAlgorithm))))
 	var sigture string
-	singerDate := timestamp.Format("20060102T150405Z")
-	singerDd := timestamp.Format("20060102")
+	singerDate := timestamp.Format(util.TimeFormat)
+	singerDd := timestamp.Format(util.TimeFormatShort)
 	CampmocalHeader := "ctyun-eop-request-id:" + uuid + "\neop-date:" + singerDate + "\n"
 	if query == "=&=" {
 		sigture = CampmocalHeader + "\n" + "" + "\n" + hashedRequestBody

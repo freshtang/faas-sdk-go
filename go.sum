@@ -1,10 +1,14 @@
-ctyun-code.srdcloud.cn/a/CNPaaS/fc/pkg v0.1.6 h1:dQoSCxX171JmG0NrJ2rdv+SEWCqW0pScgniJ4TpVhDk=
-ctyun-code.srdcloud.cn/a/CNPaaS/fc/pkg v0.1.6/go.mod h1:uvbeOuW7x0ncLr9re9L7JRmxK08HDUdKAx/uau1qpLo=
+ctyun-code.srdcloud.cn/a/CNPaaS/fc/pkg v0.2.4 h1:nS5QLz1JiD9y8qNl2NT428hraEV6PVh9+sQw4IrUz30=
+ctyun-code.srdcloud.cn/a/CNPaaS/fc/pkg v0.2.4/go.mod h1:LVqHitBoxiMU52Or3VEJtHwUKvoOFRIEMu0yK1T5QjY=
 github.com/Taoja/sm4 v0.0.0-20210702124949-ed65c23ff019 h1:9VKAUKGeGC0qrqzTWlR6la7T+dfGHUwtKVpYH0TeHDI=
 github.com/Taoja/sm4 v0.0.0-20210702124949-ed65c23ff019/go.mod h1:ENBa7K7CdnfYoOSMPUZjDDkEfqRxvSqTFy5JuY3ROcM=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
+github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
-github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
+github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
+github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
+gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
