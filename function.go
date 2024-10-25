@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	InvokeFunctionPath = "/api/v1/functions/%s/invocations"
+	InvokeFunctionPath = "/openapi/v1/functions/%s/invocations"
 )
 
 type InvokeFunctionHeaders struct {
@@ -148,7 +148,7 @@ func (c *Client) InvokeFunctionWithOptions(functionName *string, request *Invoke
 		Query:       query,
 		Body:        request.Body,
 	}
-	rsp, err := client.DoRequest(req)
+	rsp, err := client.DoCTAPIRequest(req)
 	if err != nil {
 		return _result, err
 	}

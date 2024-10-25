@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"sort"
 	"strings"
+	"time"
 
 	"gitlab.ctyun.cn/ctg-dcos/faas-sdk-go/credential/util"
 )
@@ -39,6 +40,7 @@ type Credential interface {
 	DoRequest(request *Request) (*http.Response, error)
 	DoCTAPIRequest(request *Request) (*http.Response, error)
 	ValidateSignature(request *http.Request) (bool, error)
+	ValidateCTAPISignature(request *http.Request) (bool, error)
 }
 
 func NewCredential(ak *string, sk *string) Credential {
@@ -137,6 +139,26 @@ func (c *credential) ValidateSignature(request *http.Request) (bool, error) {
 	return strings.Split(ctxAuth, "Signature=")[1] == strings.Split(encodeSignature, "Signature=")[1], nil
 }
 
+func (c *credential) ValidateCTAPISignature(request *http.Request) (bool, error) {
+	ctxAuth := request.Header.Get("Eop-Authorization")
+	ctxAK := strings.Split(ctxAuth, " ")[0]
+	if !util.BoolValue(util.EqualString(c.AK, util.String(ctxAK))) {
+		return false, nil
+	}
+
+	uid := request.Header.Get("ctyun-eop-request-id")
+	eopDate := request.Header.Get("Eop-date")
+	t, err := time.Parse(util.TimeFormat, eopDate)
+	if err != nil {
+		return false, err
+	}
+	queryStr := getCTAPISortedQueryString(toRequestQuery(request))
+	bodyStr := util.StringValue(util.ToJSONString(request.Body))
+	authorization := getCTAPIAuthorization(queryStr, bodyStr, uid, util.StringValue(c.AK), util.StringValue(c.SK), t)
+	signature := strings.Split(authorization, "Signature=")[1] // 解密: base64.StdEncoding.EncodeToString([]byte(Signature))
+	return strings.Split(ctxAuth, "Signature=")[1] == signature, nil
+}
+
 func (c *credential) doRequest(request *Request) (*http.Response, error) {
 	if request.Method == nil {
 		request.Method = util.String("GET")
@@ -180,6 +202,14 @@ func (c *credential) doRequest(request *Request) (*http.Response, error) {
 	}
 	client := &http.Client{Transport: tr}
 	return client.Do(httpRequest)
+}
+
+func toRequestContentType(request *http.Request) *string {
+	if strings.Contains(request.Header.Get("Content-Type"), "application/json") {
+		return util.String("json")
+	}
+	// TODO(jiangkai): 支持其他ContentType
+	return nil
 }
 
 func toRequestHeader(request *http.Request) map[string]*string {
