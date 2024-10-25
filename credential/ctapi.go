@@ -53,14 +53,14 @@ func (c *credential) DoCTAPIRequest(request *Request) (*http.Response, error) {
 		localtion, _ := time.LoadLocation("Asia/Shanghai")
 		now := time.Now().In(localtion)
 		eopDate := now.Format(util.TimeFormat)
-		httpReq.Header.Add("Content-Type", util.StringValue(request.Headers["Content-Type"]))
-		httpReq.Header.Add("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/110.0")
-		httpReq.Header.Add("ctyun-eop-request-id", uuid)
-		httpReq.Header.Add("Eop-date", eopDate)
-		httpReq.Header.Add("Eop-Authorization", getCTAPIAuthorization(queryStr, util.StringValue(util.ToJSONString(body)), uuid, util.StringValue(c.AK), util.StringValue(c.SK), now))
+		httpReq.Header.Set("Content-Type", util.StringValue(request.Headers["Content-Type"]))
+		httpReq.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/110.0")
+		httpReq.Header.Set("ctyun-eop-request-id", uuid)
+		httpReq.Header.Set("Eop-date", eopDate)
+		httpReq.Header.Set("Eop-Authorization", getCTAPIAuthorization(queryStr, util.StringValue(util.ToJSONString(body)), uuid, util.StringValue(c.AK), util.StringValue(c.SK), now))
 		for key, value := range request.Headers {
 			if value != nil {
-				httpReq.Header.Add(key, util.StringValue(value))
+				httpReq.Header.Set(key, util.StringValue(value))
 			}
 		}
 		// DO: HTTP请求
